@@ -1,43 +1,57 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#000000" />
-    <meta
-      name="description"
-      content="Web site created using create-react-app"
-    />
-    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
-    <!--
-      manifest.json provides metadata used when your web app is installed on a
-      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
-    -->
-    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-    <!--
-      Notice the use of %PUBLIC_URL% in the tags above.
-      It will be replaced with the URL of the `public` folder during the build.
-      Only files inside the `public` folder can be referenced from the HTML.
+<!-- Replace with site_gm.html? -->
 
-      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
-      work correctly both with client-side routing and a non-root public URL.
-      Learn how to configure a non-root public URL by running `npm run build`.
-    -->
-    <title>React App</title>
-  </head>
-  <body>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root"></div>
-    <!--
-      This HTML file is a template.
-      If you open it directly in the browser, you will see an empty page.
+<!-- <!DOCTYPE html> -->
 
-      You can add webfonts, meta tags, or analytics to this file.
-      The build step will place the bundled scripts into the <body> tag.
+<html lang = "en">
+    <head>
+        <title>HANGMAN GAME</title>
+        <link rel="shortcut icon" href="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2F4.bp.blogspot.com%2FHFIidCyc7QnLC-YJypHSnAiiSMaE8zJM92xK75D738PtpIBfQVlupcPEsPTqnhp7xj4%3Dw1200-h630-p-k-no-nu&f=1&nofb=1">
+        <link rel='stylesheet' href='position2.css'>
+    </head>
 
-      To begin the development, run `npm start` or `yarn start`.
-      To create a production bundle, use `npm run build` or `yarn build`.
-    -->
-  </body>
+    <body>
+        <noscript>You need to enable JavaScript to run this app.</noscript>
+        <h1><ins>HANGMAN</ins></h1>
+        <!-- Main Page -->
+        <h6><a href="file:///C:/Users/etkni/Python%20Projects/Project4/hman/site_m.html" target+"_blank">Main Page</a></h6>
+        <p><b><big><em>6 Regions: 10 Random Countries Each</em></big></b></p>
+        <p><b><big>How To Play:</big></b></p>
+        <p><big>Step 1: Select the Region</big></p>
+        <p><big>Step 2: Type in the textbox your single letter guesses</big></p>
+        <p>_________________________________________</p>
+
+        <!-- Regions combobox -->
+        <div id="root"></div>
+
+        <label for="Guess"><big><b>Guess a Letter:</b></big></label>
+        <input type="text" id="Name" name="Name" maxlength="16">
+
+        <!-- Random country from selected region -->
+        <!-- <div id2 = "root"></div> -->
+        <p><b><big>_The_word_will_go_here_</big></b></p>
+        <p>_________________________________________</p>
+
+        <p><b><big>Win/Lose Conditions:</big></b></p>
+        <p><big>You win when you have revealed the word</big></p> 
+        <p><big>You lose if the hangman is fully drawn</big></p>
+        <p><big><b>ENJOY THE GAME!</b></big></p>
+
+        <h2>
+            <!-- Hangman Frame -->
+            <img id="vert1" src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fwww.pngall.com%2Fwp-content%2Fuploads%2F5%2FVertical-Line-PNG-HD-Image.png&f=1&nofb=1" style='width:600px;height:600px'>
+            <img id="vert2" src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fclipart-library.com%2Fimages_k%2Fline-with-transparent-background%2Fline-with-transparent-background-12.png&f=1&nofb=1" style='width:150px;height:200px'>
+            <img id="hori1" src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fclipart-library.com%2Fimages_k%2Fline-with-transparent-background%2Fline-with-transparent-background-12.png&f=1&nofb=1" style='width:300px;height:400px'>
+            <img id="hori2" src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fclipart-library.com%2Fimages_k%2Fline-with-transparent-background%2Fline-with-transparent-background-12.png&f=1&nofb=1" style='width:334px;height:300px'>
+
+            <!-- The Man -->
+            <img id="head" src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fclipart-library.com%2Fimages_k%2Fsad-face-transparent-background%2Fsad-face-transparent-background-2.png&f=1&nofb=1" style='width:150px;height:150px'>
+            <img id="body" src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fclipart-library.com%2Fimages_k%2Fline-with-transparent-background%2Fline-with-transparent-background-12.png&f=1&nofb=1" style='width:150px;height:250px'>
+            <img id="larm" src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fclipart-library.com%2Fimages_k%2Fline-with-transparent-background%2Fline-with-transparent-background-12.png&f=1&nofb=1" style='width:150px;height:250px'>
+            <img id="rarm" src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fclipart-library.com%2Fimages_k%2Fline-with-transparent-background%2Fline-with-transparent-background-12.png&f=1&nofb=1" style='width:150px;height:250px'>
+            <img id="lleg" src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fclipart-library.com%2Fimages_k%2Fline-with-transparent-background%2Fline-with-transparent-background-12.png&f=1&nofb=1" style='width:150px;height:250px'>
+            <img id="rleg" src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fclipart-library.com%2Fimages_k%2Fline-with-transparent-background%2Fline-with-transparent-background-12.png&f=1&nofb=1" style='width:150px;height:250px'>
+
+        </h2>
+    </body>
 </html>
+
