@@ -18,12 +18,12 @@ class Main extends React.Component {
     }
     //NOTE: May need two separate functions for this feature (may need to create a getRegionID() function)
     getCountries() {
-        const {countries} = this.state2
+        const {countries} = this.state
         var url2 = this.urlbase2 + '/getcountries'
         //var regionid_url = this.urlbase_regionid + '/getregionid'
         axios.get(url2/*, regionid_url*/).then((resp) => {
             console.log(resp)
-            this.setState({...this.state2,
+            this.setState({...this.state,
                 countries: resp.data,
             })
         }).catch(error => {
@@ -37,7 +37,7 @@ class Main extends React.Component {
         // this.urlbase = 'https://flask-service.2346o2l3anjri.us-west-2.cs.amazonlightsail.com'
         this.state = {ID: '', regions: []}
         this.urlbase2 = 'http://127.0.0.1:5000'     // localhost
-        this.state2 = {CountryID: '', countries: []}
+        this.state = {regionid: -1, regions: [], countryid: -1, countries: []}
     }
 
     componentDidMount() {
@@ -47,11 +47,12 @@ class Main extends React.Component {
     }
 
     onRegionChange(e) {
-        this.state = { regions: [] }    
+        this.state = { regions: [] } 
+        this.setState({...this.state, regionid: e.target.value})
     }
 
     onCountryChange(e) {
-        this.state2 = { countries: [] }
+        this.state = { countries: [] }
     }
 
     //NO MORE CHANGES MADE BEYOND THIS POINT (as of now)
@@ -62,7 +63,7 @@ class Main extends React.Component {
         const optregions = regions.map((r)=>{
             return <option value={r}>{r}</option>
         })
-        const {countries} = this.state2
+        const {countries} = this.state
         const optcountries = countries.map((r)=>{
             return <option value={r}>{r}</option>
         })
@@ -77,9 +78,7 @@ class Main extends React.Component {
             </div>
             <div className='countries-group'>
                 <label htmlFor="">Country: </label>
-                <select className='countries-select'>
-                {optcountries}
-                </select>           
+                <select className='countries-select' onChange={this.onRegionChange.bind(this)}></select>
             </div>
         </div>)
 
