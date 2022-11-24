@@ -54,6 +54,7 @@ class Main extends React.Component {
     onRegionChange(e) {
         //This passes the chosen region id to the server
         var url = this.urlbase + '/getcountries/'+e.target.value
+        console.log(url)
         axios.get(url/*, regionid_url*/).then((resp) => {
             console.log(resp)
             this.setState({...this.state,
@@ -75,10 +76,10 @@ class Main extends React.Component {
     render () {
         const {regions, countries} = this.state
         const optregions = regions.map((r)=>{
-            return <option value={r}>{r}</option>
+            return <option key={r.id} value={r.id}>{r.region}</option>
         })
         const optcountries = countries.map((r)=>{
-            return <option value={r}>{r}</option>
+            return <option key={r.id} value={r.id}>{r.country}</option>
         })
             
         return (<div className='Main'>
