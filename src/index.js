@@ -46,10 +46,24 @@ class Main extends React.Component {
         this.getCountries()
     }
 
+    // onRegionChange(e) {
+    //     this.state = { regions: [] } 
+    //     this.setState({...this.state, regionid: e.target.value})
+    // }
+
     onRegionChange(e) {
-        this.state = { regions: [] } 
-        this.setState({...this.state, regionid: e.target.value})
-    }
+        //This passes the chosen region id to the server
+        var url = this.urlbase + '/getcountries/'+e.target.value
+        axios.get(url/*, regionid_url*/).then((resp) => {
+            console.log(resp)
+            this.setState({...this.state,
+                countries: resp.data,
+            })
+        }).catch(error => {
+
+            console.log(error)
+        })
+        }
 
     onCountryChange(e) {
         this.state = { countries: [] }
@@ -59,26 +73,26 @@ class Main extends React.Component {
 
     //render: What the website actually shows (essentially)
     render () {
-        const {regions} = this.state
+        const {regions, countries} = this.state
         const optregions = regions.map((r)=>{
             return <option value={r}>{r}</option>
         })
-        const {countries} = this.state
         const optcountries = countries.map((r)=>{
             return <option value={r}>{r}</option>
         })
-
             
         return (<div className='Main'>
             <div className='regions-group'>
                 <label htmlFor="">Select Regions: </label>
-                <select className='regions-select'>
+                <select className='regions-select' onChange={this.onRegionChange.bind(this)}>
+                
                 {optregions}
+
                 </select>           
             </div>
             <div className='countries-group'>
                 <label htmlFor="">Country: </label>
-                <select className='countries-select' onChange={this.onRegionChange.bind(this)}></select>
+                <select className='countries-select'></select>
             </div>
         </div>)
 
