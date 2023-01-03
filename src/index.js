@@ -41,6 +41,7 @@ class Main extends React.Component {
         this.state = {ID: '', regions: []}
         this.urlbase2 = 'http://127.0.0.1:5000'     // localhost
         this.state = {regionid: -1, regions: [], countryid: -1, countries: []} //Links together country and regionID information
+        //TRYING TO PRINT RANDOM COUNTRY: var country_index = (Math.random() * this.state.length).parseInt()
     }
 
     componentDidMount() { //???
@@ -72,21 +73,19 @@ class Main extends React.Component {
 
     //Put countries into a list?
     onCountryChange(e) {
-        //This 
         this.state = { countries: [] }
-        var country_index = (Math.random() * this.state.length).parseInt()
     }
 
     //NO MORE CHANGES MADE BEYOND THIS POINT (as of now)
 
     //What the website actually shows
     render () {
-        const {regions, countries} = country_index //???
+        const {regions, countries} = this.state //???
         const optregions = regions.map((r)=>{ //???
             return <option key={r.id} value={r.id}>{r.region}</option>
         })
         const optcountries = countries.map((r)=>{ //???
-            return <option key={r.id} value={r.id}>{r.country}</option>
+            return <span key={r.id} value={r.id}>{r.country}</span>
         })
            
         //What the website will show
@@ -101,7 +100,7 @@ class Main extends React.Component {
             </div>
             <div className='countries-group'>
                 <label htmlFor="">Country: </label>
-                <span className='countries-select'>{optcountries}</span>
+                <span className='countries'>{optcountries}</span>
             </div>
         </div>)
 
