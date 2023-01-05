@@ -8,7 +8,10 @@ class Main extends React.Component {
     getRegions() {
         const {regions} = this.state //Takes list of regions from \getregions server
         var url = this.urlbase + '/getregions' //Accesses server
-        axios.get(url).then((resp) => { //???
+        axios.get(url).then((resp) => {
+            //^PT -- This code runs after you get the results from getregions. In this case, you'll take what's in data,
+            // which I think is a list of regions, and store it in your state. Notice in render() you get regions from
+            // state so they can be displayed in the regions-select drop-down
             console.log(resp)
             this.setState({...this.state, 
                 regions: resp.data,
@@ -17,17 +20,17 @@ class Main extends React.Component {
             console.log(error)
         })
     }
-    //NOTE: May need two separate functions for this feature (may need to create a getRegionID() function)
 
     //Will connect countries server to this app
     getCountries() {
         const {countries} = this.state //Takes list of regions from \getregions server
         var url2 = this.urlbase2 + '/getcountries' //Accesses server
-        //var regionid_url = this.urlbase_regionid + '/getregionid'
         axios.get(url2/*, regionid_url*/).then((resp) => { //???
             console.log(resp)
             this.setState({...this.state,
                 countries: resp.data,
+                country_index: (Math.random() * countries.length).parseInt() //Changed '=' to ':'
+                //^Random Country Placement Option 1
             })
         }).catch(error => { //Catch errors, tell in console in dev tools
             console.log(error)
@@ -38,32 +41,31 @@ class Main extends React.Component {
         super()
         this.urlbase = 'http://127.0.0.1:5000'     // localhost
         // this.urlbase = 'https://flask-service.2346o2l3anjri.us-west-2.cs.amazonlightsail.com'
-        this.state = {ID: '', regions: []}
         this.urlbase2 = 'http://127.0.0.1:5000'     // localhost
-        this.state = {regionid: -1, regions: [], countryid: -1, countries: []} //Links together country and regionID information
+        this.state = this.state = {regionid: -1, regions: [], countryid: -1, countries: [], country_index: -1} //Links together country and regionID information
         //TRYING TO PRINT RANDOM COUNTRY: var country_index = (Math.random() * this.state.length).parseInt()
     }
 
-    componentDidMount() { //???
+    componentDidMount() { 
+        //^PT -- this gets called automatically once your website is loaded for the first time. You fetch the regions here
         debugger
         this.getRegions()
     }
 
-    // onRegionChange(e) {
-    //     this.state = { regions: [] } 
-    //     this.setState({...this.state, regionid: e.target.value})
-    // }
-
     //Create combobox for regions
     onRegionChange(e) { 
         //This passes the chosen region id to the server
-        var url = this.urlbase + '/getcountries/'+e.target.value //???
-        console.log(url) //??
+        var url = this.urlbase + '/getcountries/'+e.target.value
+        //^PT -- e has the information about the region drop-down. e.target.value has the chosen region, 
+        // which you send to your server so you can get the countries in that region
+        console.log(url)
         //Places region list into combobox, then allows you to  choose one reion out of those in the combobox
-        axios.get(url/*, regionid_url*/).then((resp) => { //???
+        axios.get(url).then((resp) => {
             console.log(resp)
             this.setState({...this.state,
-                countries: resp.data,
+                countries: resp.data, 
+                //country_index: (Math.random() * resp.data.length).parseInt() //Changed '=' to ':'
+                //^Random Country Placement Option 2
             })
         }).catch(error => { //Catch error, tell console
 
@@ -71,22 +73,18 @@ class Main extends React.Component {
         })
         }
 
-    //Put countries into a list?
-    onCountryChange(e) {
-        this.state = { countries: [] }
-    }
-
-    //NO MORE CHANGES MADE BEYOND THIS POINT (as of now)
-
-    //What the website actually shows
+    //What the website actually shows (render)
     render () {
-        const {regions, countries} = this.state //???
-        const optregions = regions.map((r)=>{ //???
+        const {regions, countries, country_index} = this.state 
+        //^gets the current list of regions, countries and country index from state.
+        const optregions = regions.map((r)=>{
             return <option key={r.id} value={r.id}>{r.region}</option>
+            //^PT -- this builds a list of options in the region drop-down.
         })
-        const optcountries = countries.map((r)=>{ //???
-            return <span key={r.id} value={r.id}>{r.country}</span>
-        })
+        // const optcountries = countries.map((r)=>{
+        //     return <span key={r.id} value={r.id}>{r.country}</span>
+        // })
+        //^PROBABLY DON'T NEED THIS
            
         //What the website will show
         return (<div className='Main'>
@@ -107,6 +105,5 @@ class Main extends React.Component {
     }
     
 }
- //???
-const root = ReactDOM.createRoot(document.getElementById("root"));
+//PT -- this simply calls your Main class (which you define above) to build the website
 root.render(<Main />);
