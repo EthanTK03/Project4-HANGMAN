@@ -25,14 +25,27 @@ class Main extends React.Component {
     getCountries() {
         const {countries} = this.state //Takes list of regions from \getregions server
         var url2 = this.urlbase2 + '/getcountries' //Accesses server
-        axios.get(url2/*, regionid_url*/).then((resp) => { //???
+        axios.get(url2).then((resp) => {
             console.log(resp)
             this.setState({...this.state,
                 countries: resp.data,
-                country_index: (Math.random() * countries.length).parseInt() //Changed '=' to ':'
-                //^Random Country Placement Option 1
+                country_index: parseInt(Math.random() * resp.data.length) //Changed '=' to ':'
+                //^Random Country Placement
             })
         }).catch(error => { //Catch errors, tell in console in dev tools
+            console.log(error)
+        })
+    }
+
+    getGuesses() {
+        const {guesses} = this.state //Get a list of all Guesses (user inputs)
+        var input = this.inputbase
+        axios.get(input).then((resp) => {
+            console.log(resp)
+            this.setState({...this.state,
+            guesses: resp.data,
+        })
+        }).catch(error => {
             console.log(error)
         })
     }
@@ -42,7 +55,7 @@ class Main extends React.Component {
         this.urlbase = 'http://127.0.0.1:5000'     // localhost
         // this.urlbase = 'https://flask-service.2346o2l3anjri.us-west-2.cs.amazonlightsail.com'
         this.urlbase2 = 'http://127.0.0.1:5000'     // localhost
-        this.state = this.state = {regionid: -1, regions: [], countryid: -1, countries: [], country_index: -1} //Links together country and regionID information
+        this.state = this.state = {regionid: -1, regions: [], countryid: -1, countries: [], country_index: -1, guesses: []} //Links together country and regionID information
         //TRYING TO PRINT RANDOM COUNTRY: var country_index = (Math.random() * this.state.length).parseInt()
     }
 
@@ -64,8 +77,8 @@ class Main extends React.Component {
             console.log(resp)
             this.setState({...this.state,
                 countries: resp.data, 
-                //country_index: (Math.random() * resp.data.length).parseInt() //Changed '=' to ':'
-                //^Random Country Placement Option 2
+                country_index: parseInt(Math.random() * resp.data.length) //Changed '=' to ':'
+                //^Random Country Placement
             })
         }).catch(error => { //Catch error, tell console
 
@@ -75,7 +88,7 @@ class Main extends React.Component {
 
     //What the website actually shows (render)
     render () {
-        const {regions, countries, country_index} = this.state 
+        const {regions, countries, country_index, guesses} = this.state 
         //^gets the current list of regions, countries and country index from state.
         const optregions = regions.map((r)=>{
             return <option key={r.id} value={r.id}>{r.region}</option>
@@ -96,9 +109,11 @@ class Main extends React.Component {
 
                 </select>
             </div>
+            <p></p>
             <div className='countries-group'>
                 <label htmlFor="">Country: </label>
-                <span className='countries'>{optcountries}</span>
+                {country_index >= 0 && <span className='countries'>{countries[country_index].country}</span>} 
+                {/* ^Prints the random country */}
             </div>
         </div>)
 
@@ -106,4 +121,5 @@ class Main extends React.Component {
     
 }
 //PT -- this simply calls your Main class (which you define above) to build the website
+const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(<Main />);
