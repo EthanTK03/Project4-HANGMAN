@@ -37,18 +37,18 @@ class Main extends React.Component {
         })
     }
 
-    getGuesses() {
-        const {guesses} = this.state //Get a list of all Guesses (user inputs)
-        var input = this.inputbase
-        axios.get(input).then((resp) => {
-            console.log(resp)
-            this.setState({...this.state,
-            guesses: resp.data,
-        })
-        }).catch(error => {
-            console.log(error)
-        })
-    }
+    // getGuesses() {
+    //     const {guesses} = this.state //Get a list of all Guesses (user inputs)
+    //     var input = this.inputbase
+    //     axios.get(input).then((resp) => {
+    //         console.log(resp)
+    //         this.setState({...this.state,
+    //         guesses: resp.data,
+    //     })
+    //     }).catch(error => {
+    //         console.log(error)
+    //     })
+    // }
 
     constructor() { //Create website to host everything (NOT COMPLETELY SURE WHAT THIS DOES)
         super()
@@ -61,7 +61,6 @@ class Main extends React.Component {
 
     componentDidMount() { 
         //^PT -- this gets called automatically once your website is loaded for the first time. You fetch the regions here
-        debugger
         this.getRegions()
     }
 
@@ -94,26 +93,45 @@ class Main extends React.Component {
             return <option key={r.id} value={r.id}>{r.region}</option>
             //^PT -- this builds a list of options in the region drop-down.
         })
+
+        //If you have a country chosen, go through each character. If that character is in guesses, show it. Otherwise show an _
+        var country = ''
+        if (country_index > 0) {
+            console.log(countries[country_index].country)
+            country = countries[country_index].country.split('').map((c) => { return ' ' + (guesses.indexOf(c) >= 0 ? c : '_') + ' ' }).join('');
+        }
+        
+
         // const optcountries = countries.map((r)=>{
         //     return <span key={r.id} value={r.id}>{r.country}</span>
         // })
         //^PROBABLY DON'T NEED THIS
-           
+        
         //What the website will show
         return (<div className='Main'>
             <div className='regions-group'>
                 <label htmlFor="">Select Regions: </label>
                 <select className='regions-select' onChange={this.onRegionChange.bind(this)}>
-                
                 {optregions}
-
                 </select>
             </div>
+
             <p></p>
             <div className='countries-group'>
                 <label htmlFor="">Country: </label>
-                {country_index >= 0 && <span className='countries'>{countries[country_index].country}</span>} 
+                {/* {country_index >= 0 && <span className='countries'>{countries[country_index].country}</span>} */}
+                {country}
                 {/* ^Prints the random country */}
+            </div>
+
+            <div>
+                <label htmlFor="Guess"><big><b>Guess a Letter:</b></big></label>
+                <p></p>
+                <input type="text" id="Name" name="Name" maxLength="16"></input>
+
+                {/* User Input (Guessing a Letter) */}
+                <input value={country} onChange={this.onRegionChange.bind(this)}/> 
+                <button onClick={this.guess.bind(this)}>Guess</button>
             </div>
         </div>)
 
