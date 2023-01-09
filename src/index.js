@@ -137,11 +137,11 @@ class Main extends React.Component {
             <div>
                 <label htmlFor="Guess"><big><b>Guess a Letter:</b></big></label>
                 <p></p>
-                <input type="text" id="letter" letter="letter" maxLength="16" value={guesses} onChange={this.addGuess.bind(this)}></input>
+                <input type="text" id="letter" letter="letter" maxLength="16" value={guesses} onChange={this.onRegionChange.bind(this)}></input>
 
                 {/* User Input (Guessing a Letter) */}
                 {/* <input value={country} onChange={this.onRegionChange.bind(this)}/>  */}
-                <button onClick={this.guess_count.bind(this)}>Guess</button>
+                <button onClick={this.addGuess.bind(this)}>Guess</button>
             </div>
         </div>)
 
