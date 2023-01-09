@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useReducer } from 'react'
 import ReactDOM from 'react-dom/client';
 import axios from 'axios';
 import './index.css';
@@ -84,6 +84,14 @@ class Main extends React.Component {
             console.log(error)
         })
         }
+
+    addGuess() {
+        var url = this.urlbase + country_index + guesses
+        axios.get(url).then((resp) => {
+            this.setState({...this.state,
+            guess_count: resp.data['guess count']})
+        })
+    }
 
     //What the website actually shows (render)
     render () {
