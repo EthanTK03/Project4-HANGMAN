@@ -89,8 +89,8 @@ class Main extends React.Component {
         this.setState({...this.state, guess: e.target.value})
     }
     addGuess() {
-        const {guess} = this.state
-        var actual_guess = this.state + guess //+ country
+        const {guess, guesses} = this.state
+        this.setState({...this.state, guesses.push(guess)})
     }
 
     //What the website actually shows (render)
