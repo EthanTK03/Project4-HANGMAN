@@ -55,7 +55,7 @@ class Main extends React.Component {
         this.urlbase = 'http://127.0.0.1:5000'     // localhost
         // this.urlbase = 'https://flask-service.2346o2l3anjri.us-west-2.cs.amazonlightsail.com'
         this.urlbase2 = 'http://127.0.0.1:5000'     // localhost
-        this.state = this.state = {regionid: -1, regions: [], countryid: -1, countries: [], country_index: -1, guesses: []} //Links together country and regionID information
+        this.state = this.state = {regionid: -1, regions: [], countryid: -1, countries: [], country_index: -1, guesses: ""} //Links together country and regionID information
         //TRYING TO PRINT RANDOM COUNTRY: var country_index = (Math.random() * this.state.length).parseInt()
     }
 
@@ -86,11 +86,13 @@ class Main extends React.Component {
     }
 
     onGuessChange(e) {
-        this.setState({...this.state, guess: e.target.value})
+        this.setState({...this.state, guess: e.target.value}) //Get the value typed into the textbox
     }
     addGuess() {
-        const {guess, guesses} = this.state
-        this.setState({...this.state, guesses.push(guess)})
+        
+        const {guess, guesses} = this.state //Define guess, guesses in function
+        guesses = guesses + guess
+        this.setState({...this.state, guesses: guesses}) //Put the value from textbox into the list of guesses
     }
 
     //What the website actually shows (render)
@@ -129,23 +131,31 @@ class Main extends React.Component {
                 <label htmlFor="">Country: </label>
                 {/* {country_index >= 0 && <span className='countries'>{countries[country_index].country}</span>} */}
                 {country}
-                {/* ^Prints the random country */}
+                {/* ^Prints the random country (as underscores)*/}
             </div>
 
             <div>
                 <label htmlFor="Guess"><big><b>Guess a Letter:</b></big></label>
                 <p></p>
-                <input type="text" id="letter" letter="letter" maxLength="16" value={guesses} onChange={this.onGuessChange.bind(this)}></input>
+
+                <input type="text" id="letter" letter="letter" maxLength="16" 
+                value={guesses} onChange={this.onGuessChange.bind(this)}></input> 
+                {/* ^Textbox where the user types their guess, that guess is added to a list of guesses, 
+                and the process is repeated when a new character is typed */}
 
                 {/* User Input (Guessing a Letter) */}
                 {/* <input value={country} onChange={this.onRegionChange.bind(this)}/>  */}
+
                 <button onClick={this.addGuess.bind(this)}>Guess</button>
+                {/* Button to confirm the user's guess of a character */}
+
             </div>
         </div>)
 
     }
     
 }
+
 //PT -- this simply calls your Main class (which you define above) to build the website
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(<Main />);
