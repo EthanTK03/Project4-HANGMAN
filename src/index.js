@@ -90,7 +90,8 @@ class Main extends React.Component {
     }
     addGuess() {
         
-        const {guess, guesses} = this.state //Define guess, guesses in function
+        var {guess, guesses} = this.state //Define guess, guesses in function
+        console.log(guesses + ' + ' + guess) //Output what is in state (in console) after guess button is hit
         guesses = guesses + guess
         this.setState({...this.state, guesses: guesses}) //Put the value from textbox into the list of guesses
     }
@@ -106,7 +107,7 @@ class Main extends React.Component {
 
         //If you have a country chosen, go through each character. If that character is in guesses, show it. Otherwise show an _
         var country = ''
-        if (country_index > 0) {
+        if (country_index >= 0) {
             console.log(countries[country_index].country)
             country = countries[country_index].country.split('').map((c) => { return ' ' + (guesses.indexOf(c) >= 0 ? c : '_') + ' ' }).join('');
         }
@@ -139,7 +140,7 @@ class Main extends React.Component {
                 <p></p>
 
                 <input type="text" id="letter" letter="letter" maxLength="16" 
-                value={guesses} onChange={this.onGuessChange.bind(this)}></input> 
+                onChange={this.onGuessChange.bind(this)}></input> 
                 {/* ^Textbox where the user types their guess, that guess is added to a list of guesses, 
                 and the process is repeated when a new character is typed */}
 
