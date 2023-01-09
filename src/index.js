@@ -141,7 +141,7 @@ class Main extends React.Component {
 
                 {/* User Input (Guessing a Letter) */}
                 {/* <input value={country} onChange={this.onRegionChange.bind(this)}/>  */}
-                <button onClick={this.country.bind(this)}>Guess</button>
+                <button onClick={this.guess_count.bind(this)}>Guess</button>
             </div>
         </div>)
 
