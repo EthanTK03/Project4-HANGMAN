@@ -85,14 +85,12 @@ class Main extends React.Component {
         })
     }
 
+    onGuessChange(e) {
+        this.setState({...this.state, guess: e.target.value})
+    }
     addGuess() {
-        const {guesses} = this.state
-        var url = this.urlbase + '/getcountries/' + guesses //+ country
-        axios.get(url).then((resp) => {
-            this.setState({...this.state,
-            guess_count: resp.data['guess count'], //Counts the amount of guesses (should it count the letter guessed as well or does it already?)
-            letter_count: resp.data['letter count']}) //Counts amount of letters in a word/country
-        })
+        const {guess} = this.state
+        var actual_guess = this.state + guess //+ country
     }
 
     //What the website actually shows (render)
@@ -137,7 +135,7 @@ class Main extends React.Component {
             <div>
                 <label htmlFor="Guess"><big><b>Guess a Letter:</b></big></label>
                 <p></p>
-                <input type="text" id="letter" letter="letter" maxLength="16" value={guesses} onChange={this.onRegionChange.bind(this)}></input>
+                <input type="text" id="letter" letter="letter" maxLength="16" value={guesses} onChange={this.onGuessChange.bind(this)}></input>
 
                 {/* User Input (Guessing a Letter) */}
                 {/* <input value={country} onChange={this.onRegionChange.bind(this)}/>  */}
