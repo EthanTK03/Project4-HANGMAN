@@ -29,26 +29,13 @@ class Main extends React.Component {
             console.log(resp)
             this.setState({...this.state,
                 countries: resp.data,
-                country_index: parseInt(Math.random() * resp.data.length) //Changed '=' to ':'
+                country_index: parseInt(Math.random() * resp.data.length)
                 //^Random Country Placement
             })
         }).catch(error => { //Catch errors, tell in console in dev tools
             console.log(error)
         })
     }
-
-    // getGuesses() {
-    //     const {guesses} = this.state //Get a list of all Guesses (user inputs)
-    //     var input = this.inputbase
-    //     axios.get(input).then((resp) => {
-    //         console.log(resp)
-    //         this.setState({...this.state,
-    //         guesses: resp.data,
-    //     })
-    //     }).catch(error => {
-    //         console.log(error)
-    //     })
-    // }
 
     constructor() { //Create website to host everything (NOT COMPLETELY SURE WHAT THIS DOES)
         super()
@@ -152,6 +139,35 @@ class Main extends React.Component {
                 <button onClick={this.addGuess.bind(this)}>Guess</button>
                 {/* ^Button to confirm the user's guess of a character */}
             </div>
+
+            {/* THE HANGMAN */}
+            {/* <div>
+                Hangman Frame (COMMENT THIS OUT)
+                <img id="vert1" src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fwww.pngall.com%2Fwp-content%2Fuploads%2F5%2FVertical-Line-PNG-HD-Image.png&f=1&nofb=1" style='width:600px;height:600px'></img>
+                <img id="vert2" src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fclipart-library.com%2Fimages_k%2Fline-with-transparent-background%2Fline-with-transparent-background-12.png&f=1&nofb=1" style='width:150px;height:200px'></img>
+                <img id="hori1" src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fclipart-library.com%2Fimages_k%2Fline-with-transparent-background%2Fline-with-transparent-background-12.png&f=1&nofb=1" style='width:300px;height:400px'></img>
+                <img id="hori2" src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fclipart-library.com%2Fimages_k%2Fline-with-transparent-background%2Fline-with-transparent-background-12.png&f=1&nofb=1" style='width:334px;height:300px'></img>
+
+                The Man (COMMENT THIS OUT)
+                if (incorrect_guesses >= 1) {
+                    <img id="head" src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fclipart-library.com%2Fimages_k%2Fsad-face-transparent-background%2Fsad-face-transparent-background-2.png&f=1&nofb=1" style='width:150px;height:150px'></img>
+                }
+                if (incorrect_guesses >= 2) {
+                <img id="body" src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fclipart-library.com%2Fimages_k%2Fline-with-transparent-background%2Fline-with-transparent-background-12.png&f=1&nofb=1" style='width:150px;height:250px'></img>
+                }
+                if (incorrect_guesses >= 3) {
+                <img id="larm" src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fclipart-library.com%2Fimages_k%2Fline-with-transparent-background%2Fline-with-transparent-background-12.png&f=1&nofb=1" style='width:150px;height:250px'></img>
+                }
+                if (incorrect_guesses >= 4) {
+                <img id="rarm" src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fclipart-library.com%2Fimages_k%2Fline-with-transparent-background%2Fline-with-transparent-background-12.png&f=1&nofb=1" style='width:150px;height:250px'></img>
+                }
+                if (incorrect_guesses >= 5) {
+                <img id="lleg" src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fclipart-library.com%2Fimages_k%2Fline-with-transparent-background%2Fline-with-transparent-background-12.png&f=1&nofb=1" style='width:150px;height:250px'></img>
+                }
+                if (incorrect_guesses >= 6) {
+                <img id="rleg" src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fclipart-library.com%2Fimages_k%2Fline-with-transparent-background%2Fline-with-transparent-background-12.png&f=1&nofb=1" style='width:150px;height:250px'></img>
+                }
+            </div> */}
 
         </div>)
 
