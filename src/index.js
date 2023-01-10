@@ -93,9 +93,9 @@ class Main extends React.Component {
             return <option key={r.id} value={r.id}>{r.region}</option>
             //^PT -- this builds a list of options in the region drop-down.
         })
-
-        //If you have a country chosen, go through each character. If that character is in guesses, show it. Otherwise show an _
+        var incorrect_guesses = 0 //Counts the amount of incorrect guesses (for drawing hangman)
         var country = '' //Represents each character in the full word
+        //If you have a country chosen, go through each character. If that character is in guesses, show it. Otherwise show an _
         if (country_index >= 0) { //If there is more than one character in the word (?)
             console.log(countries[country_index].country) //
             country = countries[country_index].country.split('').map((c) => { return ' ' + (guesses.indexOf(c.toLowerCase()) >= 0 ? c : '_') + ' ' }).join('');
