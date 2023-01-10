@@ -77,9 +77,8 @@ class Main extends React.Component {
             console.log(resp)
             this.setState({...this.state,
                 countries: resp.data, 
-                country_index: parseInt(Math.random() * resp.data.length), //Changed '=' to ':'
-                //^Random Country Placement
-                guesses: ''
+                country_index: parseInt(Math.random() * resp.data.length), //Random Country Placement
+                guesses: '' //Reset Guesses when changing regions
             })
         }).catch(error => { //Catch error, tell console
 
@@ -93,8 +92,8 @@ class Main extends React.Component {
     addGuess() {
         var {guess, guesses} = this.state //Define guess, guesses in function
         console.log(guesses + ' + ' + guess.length[0]) //Output what is in state (in console) after guess button is hit
-        guesses = guesses + guess.toLowerCase()
-        this.setState({...this.state, guesses: guesses}) //Put the value from textbox into the list of guesses
+        guesses = guesses + guess.toLowerCase() //Add guess from textbox into a list of all guesses
+        this.setState({...this.state, guesses: guesses}) //Put the value from textbox into the list of guesses (?)
 
         
     }
@@ -109,37 +108,40 @@ class Main extends React.Component {
         })
 
         //If you have a country chosen, go through each character. If that character is in guesses, show it. Otherwise show an _
-        var country = ''
-        if (country_index >= 0) {
-            console.log(countries[country_index].country)
+        var country = '' //Represents each character in the full word
+        if (country_index >= 0) { //If there is more than one character in the word (?)
+            console.log(countries[country_index].country) //
             country = countries[country_index].country.split('').map((c) => { return ' ' + (guesses.indexOf(c.toLowerCase()) >= 0 ? c : '_') + ' ' }).join('');
+            //^Changes full word into spaced out underscores
         }
         
-
-        // const optcountries = countries.map((r)=>{
-        //     return <span key={r.id} value={r.id}>{r.country}</span>
-        // })
-        //^PROBABLY DON'T NEED THIS
-        
-        //What the website will show
+        //SHOWN ON WEBSITE
         return (<div className='Main'>
+
+            {/* SELECT REGION */}
             <div className='regions-group'>
-                <label htmlFor="">Select Regions: </label>
-                <select className='regions-select' onChange={this.onRegionChange.bind(this)}>
+                <label htmlFor="">Select Region: </label>
+                <select className='regions-select' onChange={this.onRegionChange.bind(this)}> 
+                {/* ^Change region chosen and displayed */}
                 {optregions}
+                {/* ^List of regions displayed in the combobox */}
                 </select>
+                {/* ^<select></select> is the creation of the combobox */}
             </div>
 
             <p></p>
+
+            {/* DISPLAY COUNTRY */}
             <div className='countries-group'>
                 <label htmlFor="">Country: </label>
-                {/* {country_index >= 0 && <span className='countries'>{countries[country_index].country}</span>} */}
                 {country}
                 {/* ^Prints the random country (as underscores)*/}
             </div>
 
+            {/* GUESS A LETTER */}
             <div>
                 <label htmlFor="Guess"><big><b>Guess a Letter:</b></big></label>
+
                 <p></p>
 
                 <input type="text" id="letter" letter="letter" maxLength="16" 
@@ -147,13 +149,10 @@ class Main extends React.Component {
                 {/* ^Textbox where the user types their guess, that guess is added to a list of guesses, 
                 and the process is repeated when a new character is typed */}
 
-                {/* User Input (Guessing a Letter) */}
-                {/* <input value={country} onChange={this.onRegionChange.bind(this)}/>  */}
-
                 <button onClick={this.addGuess.bind(this)}>Guess</button>
-                {/* Button to confirm the user's guess of a character */}
-
+                {/* ^Button to confirm the user's guess of a character */}
             </div>
+
         </div>)
 
     }
