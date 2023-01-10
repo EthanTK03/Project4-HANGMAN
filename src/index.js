@@ -55,7 +55,7 @@ class Main extends React.Component {
         this.urlbase = 'http://127.0.0.1:5000'     // localhost
         // this.urlbase = 'https://flask-service.2346o2l3anjri.us-west-2.cs.amazonlightsail.com'
         this.urlbase2 = 'http://127.0.0.1:5000'     // localhost
-        this.state = this.state = {regionid: -1, regions: [], countryid: -1, countries: [], country_index: -1, guesses: ""} //Links together country and regionID information
+        this.state = this.state = {regionid: -1, regions: [], countryid: -1, countries: [], country_index: -1, guesses: ''} //Links together country and regionID information
         //TRYING TO PRINT RANDOM COUNTRY: var country_index = (Math.random() * this.state.length).parseInt()
     }
 
@@ -68,6 +68,7 @@ class Main extends React.Component {
     onRegionChange(e) { 
         //This passes the chosen region id to the server
         var url = this.urlbase + '/getcountries/'+e.target.value
+        var {guesses} = this.state
         //^PT -- e has the information about the region drop-down. e.target.value has the chosen region, 
         // which you send to your server so you can get the countries in that region
         console.log(url)
@@ -76,8 +77,9 @@ class Main extends React.Component {
             console.log(resp)
             this.setState({...this.state,
                 countries: resp.data, 
-                country_index: parseInt(Math.random() * resp.data.length) //Changed '=' to ':'
+                country_index: parseInt(Math.random() * resp.data.length), //Changed '=' to ':'
                 //^Random Country Placement
+                guesses: ''
             })
         }).catch(error => { //Catch error, tell console
 
@@ -89,11 +91,12 @@ class Main extends React.Component {
         this.setState({...this.state, guess: e.target.value}) //Get the value typed into the textbox
     }
     addGuess() {
-        
         var {guess, guesses} = this.state //Define guess, guesses in function
-        console.log(guesses + ' + ' + guess) //Output what is in state (in console) after guess button is hit
-        guesses = guesses + guess
+        console.log(guesses + ' + ' + guess.length[0]) //Output what is in state (in console) after guess button is hit
+        guesses = guesses + guess.toLowerCase()
         this.setState({...this.state, guesses: guesses}) //Put the value from textbox into the list of guesses
+
+        
     }
 
     //What the website actually shows (render)
@@ -109,7 +112,7 @@ class Main extends React.Component {
         var country = ''
         if (country_index >= 0) {
             console.log(countries[country_index].country)
-            country = countries[country_index].country.split('').map((c) => { return ' ' + (guesses.indexOf(c) >= 0 ? c : '_') + ' ' }).join('');
+            country = countries[country_index].country.split('').map((c) => { return ' ' + (guesses.indexOf(c.toLowerCase()) >= 0 ? c : '_') + ' ' }).join('');
         }
         
 
