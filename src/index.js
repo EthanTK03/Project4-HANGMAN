@@ -85,6 +85,13 @@ class Main extends React.Component {
         
     }
 
+    // winAlert() {
+    //     alert("You WIN!!! Congratulations on saving the Hangman!")
+    // }
+    // loseAlert() {
+    //     alert("You LOSE!!! The Hangman is dead.")
+    // }
+
     //What the website actually shows (render)
     render () {
         const {regions, countries, country_index, guesses} = this.state 
@@ -94,12 +101,53 @@ class Main extends React.Component {
             //^PT -- this builds a list of options in the region drop-down.
         })
         var incorrect_guesses = 0 //Counts the amount of incorrect guesses (for drawing hangman)
+        var correct_guesses = 0
         var country = '' //Represents each character in the full word
+        var img = []
         //If you have a country chosen, go through each character. If that character is in guesses, show it. Otherwise show an _
         if (country_index >= 0) { //If there is more than one character in the word (?)
-            console.log(countries[country_index].country) //
+            console.log(countries[country_index].country) //C
             country = countries[country_index].country.split('').map((c) => { return ' ' + (guesses.indexOf(c.toLowerCase()) >= 0 ? c : '_') + ' ' }).join('');
-            //^Changes full word into spaced out underscores
+            //^Changes full word into spaced out underscores (Check if correct guess)
+
+            Array.from(guesses).forEach(((c)=>{ //Count amount of incorrect guesses
+                if (country.toLowerCase().indexOf(c.toLowerCase()) == -1)
+                    incorrect_guesses = incorrect_guesses + 1
+            }))
+
+            Array.from(guesses).forEach(((c)=>{ //Count amount of correct guesses
+                if (country.indexOf(c.toLowerCase()) != '_')
+                    alert("You WIN!!! Congratulations on saving the Hangman!")
+            }))
+
+            if (incorrect_guesses >= 1) {
+                img.push (<img id="head" src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fclipart-library.com%2Fimages_k%2Fsad-face-transparent-background%2Fsad-face-transparent-background-2.png&f=1&nofb=1" style={{width:'150px',height:'150px'}}></img>)
+            }
+            if (incorrect_guesses >= 2) {
+                img.push (<img id="body" src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fclipart-library.com%2Fimages_k%2Fline-with-transparent-background%2Fline-with-transparent-background-12.png&f=1&nofb=1" style={{width:'150px',height:'250px'}}></img>)
+            }
+            if (incorrect_guesses >= 3) {
+                img.push(<img id="larm" src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fclipart-library.com%2Fimages_k%2Fline-with-transparent-background%2Fline-with-transparent-background-12.png&f=1&nofb=1" style={{width:'150px',height:'250px'}}></img>)
+            }
+            if (incorrect_guesses >= 4) {
+                img.push (<img id="rarm" src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fclipart-library.com%2Fimages_k%2Fline-with-transparent-background%2Fline-with-transparent-background-12.png&f=1&nofb=1" style={{width:'150px',height:'250px'}}></img>)
+            }
+            if (incorrect_guesses >= 5) {
+                img.push (<img id="lleg" src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fclipart-library.com%2Fimages_k%2Fline-with-transparent-background%2Fline-with-transparent-background-12.png&f=1&nofb=1" style={{width:'150px',height:'250px'}}></img>)
+            }
+            if (incorrect_guesses >= 6) {
+                img.push (<img id="rleg" src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fclipart-library.com%2Fimages_k%2Fline-with-transparent-background%2Fline-with-transparent-background-12.png&f=1&nofb=1" style={{width:'150px',height:'250px'}}></img>)
+            }
+
+            //FIX IDEA: if (no instances of '_')...
+            // if (correct_guesses >= 6) { //DOES NOT WORK - Not every word is 6 letters
+            //     //winAlert()
+            //     alert("You WIN!!! Congratulations on saving the Hangman!")
+            // }
+            if(incorrect_guesses >= 6) {
+                //loseAlert()
+                alert("You LOSE!!! The Hangman is dead.")
+            }
         }
         
         //SHOWN ON WEBSITE
@@ -141,33 +189,19 @@ class Main extends React.Component {
             </div>
 
             {/* THE HANGMAN */}
-            {/* <div>
-                Hangman Frame (COMMENT THIS OUT)
-                <img id="vert1" src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fwww.pngall.com%2Fwp-content%2Fuploads%2F5%2FVertical-Line-PNG-HD-Image.png&f=1&nofb=1" style='width:600px;height:600px'></img>
-                <img id="vert2" src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fclipart-library.com%2Fimages_k%2Fline-with-transparent-background%2Fline-with-transparent-background-12.png&f=1&nofb=1" style='width:150px;height:200px'></img>
-                <img id="hori1" src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fclipart-library.com%2Fimages_k%2Fline-with-transparent-background%2Fline-with-transparent-background-12.png&f=1&nofb=1" style='width:300px;height:400px'></img>
-                <img id="hori2" src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fclipart-library.com%2Fimages_k%2Fline-with-transparent-background%2Fline-with-transparent-background-12.png&f=1&nofb=1" style='width:334px;height:300px'></img>
-
-                The Man (COMMENT THIS OUT)
-                if (incorrect_guesses >= 1) {
-                    <img id="head" src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fclipart-library.com%2Fimages_k%2Fsad-face-transparent-background%2Fsad-face-transparent-background-2.png&f=1&nofb=1" style='width:150px;height:150px'></img>
-                }
-                if (incorrect_guesses >= 2) {
-                <img id="body" src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fclipart-library.com%2Fimages_k%2Fline-with-transparent-background%2Fline-with-transparent-background-12.png&f=1&nofb=1" style='width:150px;height:250px'></img>
-                }
-                if (incorrect_guesses >= 3) {
-                <img id="larm" src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fclipart-library.com%2Fimages_k%2Fline-with-transparent-background%2Fline-with-transparent-background-12.png&f=1&nofb=1" style='width:150px;height:250px'></img>
-                }
-                if (incorrect_guesses >= 4) {
-                <img id="rarm" src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fclipart-library.com%2Fimages_k%2Fline-with-transparent-background%2Fline-with-transparent-background-12.png&f=1&nofb=1" style='width:150px;height:250px'></img>
-                }
-                if (incorrect_guesses >= 5) {
-                <img id="lleg" src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fclipart-library.com%2Fimages_k%2Fline-with-transparent-background%2Fline-with-transparent-background-12.png&f=1&nofb=1" style='width:150px;height:250px'></img>
-                }
-                if (incorrect_guesses >= 6) {
-                <img id="rleg" src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fclipart-library.com%2Fimages_k%2Fline-with-transparent-background%2Fline-with-transparent-background-12.png&f=1&nofb=1" style='width:150px;height:250px'></img>
-                }
-            </div> */}
+            <div>
+                {/* Hangman Frame (COMMENT THIS OUT) */}
+                <img id="vert1" src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fwww.pngall.com%2Fwp-content%2Fuploads%2F5%2FVertical-Line-PNG-HD-Image.png&f=1&nofb=1" style={{width:'600px',height:'600px'}}></img>
+                <img id="vert2" src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fclipart-library.com%2Fimages_k%2Fline-with-transparent-background%2Fline-with-transparent-background-12.png&f=1&nofb=1" style={{width:'150px',height:'200px'}}></img>
+                <img id="hori1" src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fclipart-library.com%2Fimages_k%2Fline-with-transparent-background%2Fline-with-transparent-background-12.png&f=1&nofb=1" style={{width:'300px',height:'400px'}}></img>
+                <img id="hori2" src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fclipart-library.com%2Fimages_k%2Fline-with-transparent-background%2Fline-with-transparent-background-12.png&f=1&nofb=1" style={{width:'334px',height:'300px'}}></img>
+                {img.length>0 &&img[0]}
+                {img.length>1 &&img[1]}
+                {img.length>2 &&img[2]}
+                {img.length>3 &&img[3]}
+                {img.length>4 &&img[4]}
+                {img.length>5 &&img[5]}
+            </div>
 
         </div>)
 
