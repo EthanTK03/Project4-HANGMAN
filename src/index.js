@@ -85,13 +85,6 @@ class Main extends React.Component {
         
     }
 
-    // winAlert() {
-    //     alert("You WIN!!! Congratulations on saving the Hangman!")
-    // }
-    // loseAlert() {
-    //     alert("You LOSE!!! The Hangman is dead.")
-    // }
-
     //What the website actually shows (render)
     render () {
         const {regions, countries, country_index, guesses} = this.state 
@@ -101,7 +94,7 @@ class Main extends React.Component {
             //^PT -- this builds a list of options in the region drop-down.
         })
         var incorrect_guesses = 0 //Counts the amount of incorrect guesses (for drawing hangman)
-        var correct_guesses = 0
+        var underscores = 0
         var country = '' //Represents each character in the full word
         var img = []
         //If you have a country chosen, go through each character. If that character is in guesses, show it. Otherwise show an _
@@ -115,11 +108,11 @@ class Main extends React.Component {
                     incorrect_guesses = incorrect_guesses + 1
             }))
 
-            Array.from(guesses).forEach(((c)=>{ //Count amount of correct guesses
-                if (country.indexOf(c.toLowerCase()) != '_')
-                    alert("You WIN!!! Congratulations on saving the Hangman!")
+            Array.from(country).forEach(((c)=>{ //Count amount of underscores (unguessed letters)
+                if (c == '_')
+                    underscores = underscores + 1
             }))
-
+            
             if (incorrect_guesses >= 1) {
                 img.push (<img id="head" src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fclipart-library.com%2Fimages_k%2Fsad-face-transparent-background%2Fsad-face-transparent-background-2.png&f=1&nofb=1" style={{width:'150px',height:'150px'}}></img>)
             }
@@ -139,13 +132,10 @@ class Main extends React.Component {
                 img.push (<img id="rleg" src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fclipart-library.com%2Fimages_k%2Fline-with-transparent-background%2Fline-with-transparent-background-12.png&f=1&nofb=1" style={{width:'150px',height:'250px'}}></img>)
             }
 
-            //FIX IDEA: if (no instances of '_')...
-            // if (correct_guesses >= 6) { //DOES NOT WORK - Not every word is 6 letters
-            //     //winAlert()
-            //     alert("You WIN!!! Congratulations on saving the Hangman!")
-            // }
-            if(incorrect_guesses >= 6) {
-                //loseAlert()
+            if (underscores == 0) { //Displays if the entire word is correctly guessed
+                alert("You WIN!!! Congratulations on saving the Hangman!")
+            }
+            if(incorrect_guesses >= 6) { //Displays if the entire hangman is drawn (6 incorrect guesses)
                 alert("You LOSE!!! The Hangman is dead.")
             }
         }
