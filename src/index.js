@@ -24,8 +24,8 @@ class Main extends React.Component {
     //Will connect countries server to this app
     getCountries() {
         const {countries} = this.state //Takes list of regions from \getregions server
-        var url2 = this.urlbase2 + '/getcountries' //Accesses server
-        axios.get(url2).then((resp) => {
+        var url = this.urlbase + '/getcountries' //Accesses server
+        axios.get(url).then((resp) => {
             console.log(resp)
             this.setState({...this.state,
                 countries: resp.data,
@@ -39,11 +39,10 @@ class Main extends React.Component {
 
     constructor() { //Create website to host everything (NOT COMPLETELY SURE WHAT THIS DOES)
         super()
-        this.urlbase = 'http://127.0.0.1:5000'     // localhost
-        // this.urlbase = 'https://flask-service.2346o2l3anjri.us-west-2.cs.amazonlightsail.com'
-        this.urlbase2 = 'http://127.0.0.1:5000'     // localhost
+        //this.urlbase = 'http://127.0.0.1:5000'     // localhost
+        //this.urlbase2 = 'http://127.0.0.1:5000'     // localhost
+        this.urlbase = 'https://flask-service.jvsam7l3c067o.us-west-2.cs.amazonlightsail.com/'
         this.state = this.state = {regionid: -1, regions: [], countryid: -1, countries: [], country_index: -1, guesses: ''} //Links together country and regionID information
-        //TRYING TO PRINT RANDOM COUNTRY: var country_index = (Math.random() * this.state.length).parseInt()
     }
 
     componentDidMount() { 
