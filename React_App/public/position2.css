@@ -1,0 +1,60 @@
+/* Frame */
+#vert1 {
+    position: fixed;
+    bottom: 25;
+    right: 0;
+  }
+  #vert2 {
+    position: fixed;
+    bottom: 440;
+    right: 550;
+    transform: rotate(90deg);
+
+  }
+  #hori1 {
+    position: fixed;
+    bottom: -170;
+    right: 150;
+  }
+  #hori2 {
+    position: fixed;
+    bottom: 465;
+    right: 295;
+  }
+
+  /* The Hangman */
+#head {
+    position: fixed;
+    bottom: 340;
+    right: 550;
+  }
+#body {
+    position: fixed;
+    bottom: 165;
+    right: 550;
+    transform: rotate(90deg);
+  }
+#larm {
+    position: fixed;
+    bottom: 230;
+    right: 500;
+    transform: rotate(135deg);
+  }
+#rarm {
+    position: fixed;
+    bottom: 230;
+    right: 600;
+    transform: rotate(45deg);
+  }
+#lleg {
+    position: fixed;
+    bottom: 35;
+    right: 591;
+    transform: rotate(305deg);
+  }
+#rleg {
+    position: fixed;
+    bottom: 35;
+    right: 508;
+    transform: rotate(235deg);
+  }
